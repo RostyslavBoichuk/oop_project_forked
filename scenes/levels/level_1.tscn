@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b7n251apj7li3" path="res://characters/character_manager.tscn" id="2_nsrm0"]
 [ext_resource type="Texture2D" uid="uid://b8bxp4tpr3ibv" path="res://source/main_menu_background.png" id="3_nsrm0"]
 [ext_resource type="PackedScene" uid="uid://chsol1815raqn" path="res://characters/trader/trader.tscn" id="4_x42e6"]
-[ext_resource type="PackedScene" path="res://items/satelite.tscn" id="5_6761a"]
+[ext_resource type="PackedScene" uid="uid://dtor8ft7cgvy" path="res://items/satelite.tscn" id="5_6761a"]
 [ext_resource type="PackedScene" uid="uid://coxglqhxehbe3" path="res://enemies/camel/camel.tscn" id="6_camel"]
 
 [node name="Node2D" type="Node2D"]

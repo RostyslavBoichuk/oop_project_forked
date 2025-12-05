@@ -1,0 +1,29 @@
+using Godot;
+using System;
+
+public partial class MainMenuButton : Node2D
+{
+	private Area2D area;
+	[Export]
+	private string sceneToLoad = "res://scenes/main_menu.tscn";
+
+	public override void _Ready()
+	{
+		area = GetNode<Area2D>("Area2D_MainMenuButton");
+		if (area == null)
+		{
+			GD.PrintErr("Area2D node not found! Check the child node name.");
+			return;
+		}
+		area.InputEvent += OnButtonClicked;
+	}
+
+	private void OnButtonClicked(Node viewport, InputEvent @event, long shapeIdx)
+	{
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+		{
+			GD.Print($"{Name} clicked! Loading scene: {sceneToLoad}");
+			GetTree().ChangeSceneToFile(sceneToLoad);
+		}
+	}
+}

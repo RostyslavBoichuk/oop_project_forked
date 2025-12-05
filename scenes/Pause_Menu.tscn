@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://d1itbwjffwpr1"]
+
+[ext_resource type="Script" uid="uid://drc88wrmc86qh" path="res://scenes/PauseMenu.cs" id="1_7uaqf"]
+[ext_resource type="Texture2D" uid="uid://c8kga2pt547h1" path="res://backgrounds/BG_Pause_Menu.jpg" id="1_w5f25"]
+[ext_resource type="Script" uid="uid://c32ymhmixmjpw" path="res://scenes/MainMenuButton.cs" id="2_w5f25"]
+[ext_resource type="Texture2D" uid="uid://bb2lpup5mucl7" path="res://items/textures/Main_Menu.png" id="3_6qyv5"]
+[ext_resource type="Texture2D" uid="uid://dprdkqvm508tt" path="res://items/textures/Restart.png" id="4_6qyv5"]
+[ext_resource type="Script" uid="uid://ckl70jeb57dju" path="res://scenes/RestartButton.cs" id="4_t8ish"]
+[ext_resource type="Script" uid="uid://c8cwwdl8inolh" path="res://scenes/QuestsButton.cs" id="6_4mb1r"]
+[ext_resource type="Texture2D" uid="uid://d20x8carx0svs" path="res://items/textures/Quest_Quests.png" id="7_5njsr"]
+[ext_resource type="Texture2D" uid="uid://xunx4vhmygds" path="res://items/textures/Statistics.png" id="8_5njsr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8ish"]
+radius = 83.00003
+height = 312.0
+
+[node name="PauseMenu" type="Node2D"]
+position = Vector2(565, 311)
+script = ExtResource("1_7uaqf")
+
+[node name="Sprite2D_Background" type="Sprite2D" parent="."]
+position = Vector2(4.0000305, -492.99994)
+scale = Vector2(1.6442186, 1.6442186)
+texture = ExtResource("1_w5f25")
+
+[node name="Node2D_MainMenuButton" type="Node2D" parent="."]
+script = ExtResource("2_w5f25")
+
+[node name="Area2D_MainMenuButton" type="Area2D" parent="Node2D_MainMenuButton"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D_MainMenuButton/Area2D_MainMenuButton"]
+position = Vector2(29, 215)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t8ish")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton"]
+position = Vector2(27.999983, 211)
+scale = Vector2(0.21342596, 0.21342593)
+texture = ExtResource("3_6qyv5")
+
+[node name="Node2D_RestartButton" type="Node2D" parent="Node2D_MainMenuButton"]
+script = ExtResource("4_t8ish")
+
+[node name="Area2D_RestartButton" type="Area2D" parent="Node2D_MainMenuButton/Node2D_RestartButton"]
+
+[node name="CollisionShape2D_1" type="CollisionShape2D" parent="Node2D_MainMenuButton/Node2D_RestartButton/Area2D_RestartButton"]
+position = Vector2(-345, 9)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t8ish")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton/Node2D_RestartButton"]
+position = Vector2(-348, 6)
+scale = Vector2(0.14375003, 0.14375001)
+texture = ExtResource("4_6qyv5")
+
+[node name="Node2D_QuestButton2" type="Node2D" parent="Node2D_MainMenuButton"]
+script = ExtResource("6_4mb1r")
+
+[node name="Area2D_QuestButton" type="Area2D" parent="Node2D_MainMenuButton/Node2D_QuestButton2"]
+
+[node name="CollisionShape2D_1" type="CollisionShape2D" parent="Node2D_MainMenuButton/Node2D_QuestButton2/Area2D_QuestButton"]
+position = Vector2(379, 13)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t8ish")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton/Node2D_QuestButton2"]
+position = Vector2(381.99997, 14)
+scale = Vector2(0.14375003, 0.14375001)
+texture = ExtResource("7_5njsr")
+
+[node name="Node2D_StatsButton3" type="Node2D" parent="Node2D_MainMenuButton"]
+
+[node name="Area2D_StatsButton" type="Area2D" parent="Node2D_MainMenuButton/Node2D_StatsButton3"]
+
+[node name="CollisionShape2D_1" type="CollisionShape2D" parent="Node2D_MainMenuButton/Node2D_StatsButton3/Area2D_StatsButton"]
+position = Vector2(12, -203)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t8ish")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton/Node2D_StatsButton3"]
+position = Vector2(10.9999695, -205)
+scale = Vector2(0.14375003, 0.14375001)
+texture = ExtResource("8_5njsr")
