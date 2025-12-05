@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://yijn5d4tf2tg"]
+
+[ext_resource type="Script" uid="uid://bg3hn4opv2fpi" path="res://scenes/GameMenu.cs" id="1_aru3y"]
+[ext_resource type="Texture2D" uid="uid://cvccdfqa6omo0" path="res://backgrounds/BG_Satelite.jpg" id="1_mw6r2"]
+[ext_resource type="Texture2D" uid="uid://vin1uqy7we1v" path="res://items/textures/Level_Map.png" id="2_ldg7d"]
+[ext_resource type="Texture2D" uid="uid://dm1c47lt5lcxn" path="res://items/textures/Character_Selection.png" id="3_aru3y"]
+[ext_resource type="Texture2D" uid="uid://cfgw01aaaca2q" path="res://items/textures/Casino.png" id="4_0b27c"]
+[ext_resource type="Texture2D" uid="uid://dpq4ja7dmsloa" path="res://characters/textures/Atlas.png" id="5_ldg7d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aru3y"]
+atlas = ExtResource("5_ldg7d")
+region = Rect2(0, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b27c"]
+atlas = ExtResource("5_ldg7d")
+region = Rect2(0, 64, 48, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yr8n5"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_aru3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b27c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_aru3y")
+
+[node name="BgSatelite" type="Sprite2D" parent="."]
+position = Vector2(577, 321.75)
+scale = Vector2(1.1289063, 1.1565295)
+texture = ExtResource("1_mw6r2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(581, 354)
+scale = Vector2(3.4270833, 3.1249998)
+sprite_frames = SubResource("SpriteFrames_yr8n5")
+frame_progress = 0.30600458
+
+[node name="LevelMapButton" type="TextureButton" parent="."]
+offset_left = 194.0
+offset_top = 486.0
+offset_right = 443.0
+offset_bottom = 629.0
+texture_normal = ExtResource("2_ldg7d")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CharSelectButton" type="TextureButton" parent="."]
+offset_left = 459.0
+offset_top = 487.0
+offset_right = 710.0
+offset_bottom = 633.0
+texture_normal = ExtResource("3_aru3y")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CasinoButton" type="TextureButton" parent="."]
+offset_left = 731.0
+offset_top = 484.0
+offset_right = 984.0
+offset_bottom = 633.0
+texture_normal = ExtResource("4_0b27c")
+ignore_texture_size = true
+stretch_mode = 5

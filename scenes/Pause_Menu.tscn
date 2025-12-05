@@ -15,10 +15,12 @@ radius = 83.00003
 height = 312.0
 
 [node name="PauseMenu" type="Node2D"]
+visibility_layer = 512
 position = Vector2(565, 311)
 script = ExtResource("1_7uaqf")
 
 [node name="Sprite2D_Background" type="Sprite2D" parent="."]
+z_index = 4
 position = Vector2(4.0000305, -492.99994)
 scale = Vector2(1.6442186, 1.6442186)
 texture = ExtResource("1_w5f25")
@@ -34,6 +36,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_t8ish")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton"]
+z_index = 4
 position = Vector2(27.999983, 211)
 scale = Vector2(0.21342596, 0.21342593)
 texture = ExtResource("3_6qyv5")
@@ -49,6 +52,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_t8ish")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton/Node2D_RestartButton"]
+z_index = 4
 position = Vector2(-348, 6)
 scale = Vector2(0.14375003, 0.14375001)
 texture = ExtResource("4_6qyv5")
@@ -64,6 +68,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_t8ish")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton/Node2D_QuestButton2"]
+z_index = 4
 position = Vector2(381.99997, 14)
 scale = Vector2(0.14375003, 0.14375001)
 texture = ExtResource("7_5njsr")
@@ -78,6 +83,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_t8ish")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D_MainMenuButton/Node2D_StatsButton3"]
+z_index = 4
 position = Vector2(10.9999695, -205)
 scale = Vector2(0.14375003, 0.14375001)
 texture = ExtResource("8_5njsr")
