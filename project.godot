@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="oop_project"
-run/main_scene="res://scenes/main_menu.tscn"
+run/main_scene="uid://yijn5d4tf2tg"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+RewardManager="*res://characters/trader/RewardManager.cs"
+LevelManager="*res://scenes/levels/LevelManager.cs"
 
 [dotnet]
 

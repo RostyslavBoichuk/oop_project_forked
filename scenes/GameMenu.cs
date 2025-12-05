@@ -8,7 +8,7 @@ public partial class GameMenu : Node2D
 	private BaseButton _charSelectButton;
 	private BaseButton _casinoButton;
 
-	private const string LEVEL_MAP_PATH = "res://levels/level_1.tscn"; 
+	private const string LEVEL_MAP_PATH = "res://scenes/levels/LevelSelectMenu.tscn"; 
 	private const string CHAR_SELECT_PATH = "res://scenes/character_select.tscn"; 
 	private const string CASINO_PATH = "res://characters/trader/UnlockShopMenu.tscn";
 
