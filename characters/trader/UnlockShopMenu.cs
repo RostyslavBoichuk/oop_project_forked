@@ -7,8 +7,10 @@ public partial class UnlockShopMenu : Control
 
 	private VBoxContainer _itemContainer;
 	private Label _currencyLabel;
-	private Button _closeButton;
+	private TextureButton _closeButton;
 
+	private const string MAIN_MENU_PATH = "res://scenes/game_menu.tscn";
+	
 	public override void _Ready()
 	{
 		ProcessMode = ProcessModeEnum.Always;
@@ -16,10 +18,21 @@ public partial class UnlockShopMenu : Control
 
 		ZIndex = 100;
 		
-		_currencyLabel = GetNode<Label>("CurrencyLabel");
-		_closeButton = GetNode<Button>("CloseButton");
-		_itemContainer = GetNode<VBoxContainer>("ScrollContainer/ItemContainer");
+		_currencyLabel = GetNodeOrNull<Label>("CurrencyLabel");
+		_itemContainer = GetNodeOrNull<VBoxContainer>("ScrollContainer/ItemContainer");
+		if (_itemContainer == null) _itemContainer = GetNodeOrNull<VBoxContainer>("ItemContainer");
+		_closeButton = GetNodeOrNull<TextureButton>("CloseButton");
 
+		if (_closeButton == null)
+		{
+			_closeButton = GetNodeOrNull<TextureButton>("close_btn");
+		}
+
+		if (_currencyLabel == null || _closeButton == null || _itemContainer == null)
+		{
+			GD.PrintErr("ERROR: Missing nodes in UnlockShopMenu.");
+			return;
+		}
 		_closeButton.Pressed += CloseMenu;
 		Refresh();
 	}
@@ -27,18 +40,29 @@ public partial class UnlockShopMenu : Control
 	private void CloseMenu()
 	{
 		GetTree().Paused = false;
-
 		if (Manager != null) 
 		{
 			Manager.shop_exists = false;
+			QueueFree();
 		}
-
-		QueueFree();
+		else
+		{
+			if (ResourceLoader.Exists(MAIN_MENU_PATH))
+			{
+				GetTree().ChangeSceneToFile(MAIN_MENU_PATH);
+			}
+			else
+			{
+				GD.PrintErr($"Main Menu scene not found at: {MAIN_MENU_PATH}");
+				QueueFree(); 
+			}
+		}
 	}
 
 	private void Refresh()
 	{
-
+		if (_itemContainer == null) return;
+		
 		int cash = (Manager != null) ? (int)Manager.currency : RewardManager.Instance.GlobalCurrency;
 		
 		_currencyLabel.Text = $"Cash: {cash}";
