@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://3rquqn57kisu"]
+
+[ext_resource type="Script" uid="uid://c1os57sv3uj3k" path="res://scenes/QuestMenu.cs" id="1_g746t"]
+
+[node name="QuestMenue" type="CanvasLayer"]
+script = ExtResource("1_g746t")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1157.0
+offset_bottom = 649.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 67.0
+offset_right = 504.0
+offset_bottom = 572.0

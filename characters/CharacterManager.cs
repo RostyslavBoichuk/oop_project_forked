@@ -65,6 +65,10 @@ public partial class CharacterManager : Node2D
 		if (Input.IsKeyPressed(Key.R))
 		{
 			RewardManager.Instance.ResetData();
+			if (QuestManager.Instance != null)
+			{
+				QuestManager.Instance.ResetData();
+			}
 			GD.Print($"Data Reset. Currency: {currency}");
 		}
 	}
@@ -120,6 +124,10 @@ public partial class CharacterManager : Node2D
 	
 	public void Reload(float bullets){
 		bullet_counter += bullets;
+		if (QuestManager.Instance != null)
+		{
+			QuestManager.Instance.UpdateProgress("collect_ammo", 1);
+		}
 	}
 	
 	public bool bullet_manage(){

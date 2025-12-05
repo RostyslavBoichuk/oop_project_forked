@@ -76,7 +76,7 @@ public partial class RewardManager : Node
 		return unlocked.Take(4).ToArray();
 	}
 
-	private void SaveGame() {
+	public void SaveGame() {
 		var data = new Godot.Collections.Dictionary();
 		data["currency"] = GlobalCurrency;
 		data["upgrade_points"] = GlobalUpgradePoints;

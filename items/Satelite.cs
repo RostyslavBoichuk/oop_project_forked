@@ -57,6 +57,7 @@ public partial class Satelite : Area2D
 		{
 			GD.Print("MainCharacter entered Satellite!");
 			manager.AddMoney(5);
+			QuestManager.Instance.UpdateProgress("collect_satellites", 1);
 			QueueFree();
 		}
 	}

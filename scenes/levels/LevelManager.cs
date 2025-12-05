@@ -10,6 +10,11 @@ public partial class LevelManager : Node
 
 	public override void _Ready()
 	{
+		if (Instance != null)
+		{
+			QueueFree();
+			return;
+		}
 		Instance = this;
 		LoadProgress();
 	}
@@ -28,6 +33,11 @@ public partial class LevelManager : Node
 	{
 		MaxUnlockedLevel = 1;
 		SaveProgress();
+		
+		if (QuestManager.Instance != null)
+		{
+			QuestManager.Instance.ResetData();
+		}
 	}
 
 	public void LockProgress()
@@ -49,6 +59,6 @@ public partial class LevelManager : Node
 		if (!FileAccess.FileExists(SAVE_PATH)) return;
 		using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
 		var data = Json.ParseString(file.GetAsText()).AsGodotDictionary();
-		if (data.ContainsKey("max_level")) MaxUnlockedLevel = (int)data["max_level"];
+		if (data.ContainsKey("max_level")) MaxUnlockedLevel = data["max_level"].AsInt32();
 	}
 }

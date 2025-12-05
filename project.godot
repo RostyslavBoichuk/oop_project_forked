@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 RewardManager="*res://characters/trader/RewardManager.cs"
 LevelManager="*res://scenes/levels/LevelManager.cs"
+QuestManager="*res://scenes/QuestManager.cs"
 
 [dotnet]
 

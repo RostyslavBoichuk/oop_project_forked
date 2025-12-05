@@ -1,41 +1,75 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdjcj2m00km2g"]
+[gd_scene load_steps=8 format=3 uid="uid://cdjcj2m00km2g"]
 
 [ext_resource type="PackedScene" uid="uid://cfhg86e8plcwb" path="res://items/reload_box.tscn" id="1_6iamk"]
 [ext_resource type="PackedScene" uid="uid://b7n251apj7li3" path="res://characters/character_manager.tscn" id="2_nsrm0"]
-[ext_resource type="Texture2D" uid="uid://b8bxp4tpr3ibv" path="res://source/main_menu_background.png" id="3_nsrm0"]
+[ext_resource type="Texture2D" uid="uid://cgqagodqh5jhv" path="res://items/textures/BG_Moon.jpg" id="3_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://chsol1815raqn" path="res://characters/trader/trader.tscn" id="4_x42e6"]
 [ext_resource type="PackedScene" uid="uid://dtor8ft7cgvy" path="res://items/satelite.tscn" id="5_6761a"]
 [ext_resource type="PackedScene" uid="uid://coxglqhxehbe3" path="res://enemies/camel/camel.tscn" id="6_camel"]
+[ext_resource type="PackedScene" uid="uid://3rquqn57kisu" path="res://scenes/QuestMenue.tscn" id="7_oc4kc"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="reload_box" parent="." instance=ExtResource("1_6iamk")]
-position = Vector2(615, 316)
+position = Vector2(139, 412)
 
 [node name="CharacterManager" parent="." instance=ExtResource("2_nsrm0")]
 
 [node name="reload_box2" parent="." instance=ExtResource("1_6iamk")]
-position = Vector2(324, 471)
+position = Vector2(234, 543)
 
 [node name="reload_box3" parent="." instance=ExtResource("1_6iamk")]
-position = Vector2(837, 424)
+position = Vector2(1018, 359)
 
 [node name="reload_box4" parent="." instance=ExtResource("1_6iamk")]
-position = Vector2(660, 573)
+position = Vector2(927, 486)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(568, 114)
-texture = ExtResource("3_nsrm0")
+position = Vector2(577.00006, 324.5)
+scale = Vector2(1.1347655, 1.1717353)
+texture = ExtResource("3_oc4kc")
 
 [node name="trader" parent="." instance=ExtResource("4_x42e6")]
 position = Vector2(991, 560)
 
 [node name="satelite" parent="." instance=ExtResource("5_6761a")]
-position = Vector2(119, 182)
+position = Vector2(322, 135)
 
 [node name="camel1" parent="." instance=ExtResource("6_camel")]
-position = Vector2(1003, 356)
+position = Vector2(1011, 447)
 
 [node name="camel2" parent="." instance=ExtResource("6_camel")]
-position = Vector2(902, 169)
+position = Vector2(160, 500)
+
+[node name="QuestManue" parent="." instance=ExtResource("7_oc4kc")]
+
+[node name="camel3" parent="." instance=ExtResource("6_camel")]
+position = Vector2(1026, 242)
+
+[node name="camel4" parent="." instance=ExtResource("6_camel")]
+position = Vector2(421, 235)
+
+[node name="camel5" parent="." instance=ExtResource("6_camel")]
+position = Vector2(699, 284)
+
+[node name="camel6" parent="." instance=ExtResource("6_camel")]
+position = Vector2(527, 561)
+
+[node name="satelite2" parent="." instance=ExtResource("5_6761a")]
+position = Vector2(1017, 105)
+
+[node name="satelite3" parent="." instance=ExtResource("5_6761a")]
+position = Vector2(735, 216)
+
+[node name="satelite4" parent="." instance=ExtResource("5_6761a")]
+position = Vector2(485, 215)
+
+[node name="reload_box5" parent="." instance=ExtResource("1_6iamk")]
+position = Vector2(427, 334)
+
+[node name="reload_box6" parent="." instance=ExtResource("1_6iamk")]
+position = Vector2(650, 387)
+
+[node name="reload_box7" parent="." instance=ExtResource("1_6iamk")]
+position = Vector2(747, 577)

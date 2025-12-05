@@ -9,6 +9,7 @@ public partial class TraderMenu : Node2D
 	private Sprite2D _spinnerSprite;
 	private Button _spinBtn;
 	private Button _closeBtn;
+	private Label _resultLabel;
 	
 	private Reward[] _rewards;
 	private bool _spinning = false;
@@ -21,7 +22,8 @@ public partial class TraderMenu : Node2D
 		_spinnerSprite = GetNode<Sprite2D>("spiner");
 		_spinBtn = GetNode<Button>("spin_btn");
 		_closeBtn = GetNode<Button>("close_btn");
-
+		_resultLabel = GetNodeOrNull<Label>("result_label");
+		
 		if (_spinnerSprite == null || _spinBtn == null || _closeBtn == null)
 		{
 			GD.PrintErr("ОШИБКА: Не найдены кнопки или спрайт! Проверьте имена нод в TraderMenu.");
@@ -46,6 +48,8 @@ public partial class TraderMenu : Node2D
 		if (_spinning) return;
 		_spinning = true;
 
+		if (_resultLabel != null) _resultLabel.Text = "Spinning...";
+
 		float target = _spinnerSprite.RotationDegrees + (float)GD.RandRange(720, 1440);
 		
 		Tween t = CreateTween().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
@@ -57,8 +61,24 @@ public partial class TraderMenu : Node2D
 		
 		if (idx < _rewards.Length) 
 		{
+			string winText = $"Won: {_rewards[idx].DisplayName}";
 			GD.Print($"Won: {_rewards[idx].DisplayName}");
 			_rewards[idx].Effect?.Invoke(Manager);
+			
+			if (_resultLabel != null) 
+			{
+				_resultLabel.Text = winText;
+			}
+		}
+		else
+		{
+			string loseText = "You lose!";
+			GD.Print(loseText);
+			
+			if (_resultLabel != null) 
+			{
+				_resultLabel.Text = loseText;
+			}
 		}
 
 		_spinning = false;

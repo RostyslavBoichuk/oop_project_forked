@@ -28,6 +28,10 @@ public partial class ReloadBox : Area2D
 			{
 				GD.Print("MainCharacter entered ReloadBox!");
 				manager.Reload(5);
+				if (QuestManager.Instance != null)
+				{
+					QuestManager.Instance.UpdateProgress("collect_ammo", 1);
+				}
 				QueueFree();
 			}
 		}

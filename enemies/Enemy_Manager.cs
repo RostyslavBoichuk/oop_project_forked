@@ -8,7 +8,9 @@ public abstract partial class EnemyManager : Area2D
 	protected float bulletSpawnInterval = 3.0f;
 	protected float timeSinceLastBullet = 0f;
 	protected float activationDistance = 400f;
-
+	
+	public float HP { get; set; } = 30f;
+	
 	protected Sprite2D characterSprite;
 	protected PackedScene bulletScene;
 	protected Node2D player;
@@ -108,6 +110,26 @@ public abstract partial class EnemyManager : Area2D
 		}
 	}
 
+	public void TakeDamage(float amount) // ADDED: Damage function
+	{
+		HP -= amount;
+		if (HP <= 0)
+		{
+			Die();
+		}
+	}
+	
+	protected virtual void Die() // ADDED: Death function
+	{
+		// REPORT PROGRESS: Kill Enemies
+		if (QuestManager.Instance != null)
+		{
+			QuestManager.Instance.UpdateProgress("kill_enemies", 1);
+		}
+		
+		QueueFree();
+	}
+	
 	public class ActivationHandler
 	{
 		public void Activate(Sprite2D sprite, ref bool facingRight)

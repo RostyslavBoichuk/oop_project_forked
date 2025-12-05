@@ -117,21 +117,38 @@ public class BulletCollisionHandler
 	{
 		if (area.IsInGroup(oppositeGroup))
 		{
-			area.QueueFree();
+			if (area is EnemyManager enemy)
+			{
+				float damage = 10f;
+				if (owner is Bullet b) damage = b.atk;
+				enemy.TakeDamage(damage);
+			}
+			else
+			{
+				area.QueueFree(); 
+			}
 			owner.QueueFree();
 		}
 		else if (area.IsInGroup("player") && owner.IsInGroup("enemy_bullet"))
 		{
 			var manager = area.GetParent<CharacterManager>();
 			if (manager != null) {
-				
 				manager.TakeDamage(RewardManager.Instance.GlobalATK * (10f - 10f / (10f + RewardManager.Instance.GlobalDEF)));
 			}
 			owner.QueueFree();
 		}
 		else if (area.IsInGroup("enemy") && owner.IsInGroup("player_bullet"))
 		{
-			area.QueueFree();
+			if (area is EnemyManager enemy)
+			{
+				float damage = 10f;
+				if (owner is Bullet b) damage = b.atk;
+				enemy.TakeDamage(damage);
+			}
+			else
+			{
+				area.QueueFree();
+			}
 			owner.QueueFree();
 		}
 	}
