@@ -3,6 +3,7 @@ using System;
 
 public partial class CharacterManager : Node2D
 {
+	private const string Pause_Menu = "res://scenes/Pause_Menu.tscn";
 	private const string SHOP_PATH = "res://characters/trader/trader_menu.tscn";
 	private const string UNLOCK_PATH = "res://characters/trader/UnlockShopMenu.tscn";
 	private const string SCOOTER_PATH = "res://items/scooter.tscn";
@@ -13,7 +14,7 @@ public partial class CharacterManager : Node2D
 	private PackedScene characterTombstoneBase;
 	private MainCharacter character;
 	private Tombstone characterTombstone;
-	private float hp = 100;
+	public float hp;
 	private float bullet_counter = 5;
 	private bool exists = false;
 	public bool allow_shop = false;
@@ -28,8 +29,15 @@ public partial class CharacterManager : Node2D
 	public int UpgradePoints { get; set; } = 0;
 	
 
+	
+	public override void _Ready()
+	{
+		hp = RewardManager.Instance.GlobalHP;
+	}
+	
 	public override void _Process(double delta)
 	{
+			
 		if (Input.IsKeyPressed(Key.Q))
 		{
 			if (characterBase == null)
@@ -42,6 +50,11 @@ public partial class CharacterManager : Node2D
 		if (Input.IsKeyPressed(Key.M) && allow_shop && !shop_exists)
 		{
 			OpenMenu(SHOP_PATH);
+		}
+		
+		if (Input.IsActionJustPressed("ui_cancel"))
+		{
+			OpenMenu(Pause_Menu);
 		}
 		
 		if (Input.IsKeyPressed(Key.U) && allow_shop && !shop_exists)

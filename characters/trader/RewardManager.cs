@@ -10,6 +10,10 @@ public partial class RewardManager : Node
 	public int GlobalCurrency { get; set; } = 1000;
 	public int GlobalUpgradePoints { get; set; } = 0;
 	
+	public int GlobalHP { get; set; } = 100;
+	public int GlobalATK { get; set; } = 10;
+	public int GlobalDEF { get; set; } = 10;
+	
 	private List<Reward> _allRewards = new List<Reward>();
 
 	public override void _Ready()
@@ -41,6 +45,9 @@ public partial class RewardManager : Node
 	{
 		if (FileAccess.FileExists(SAVE_PATH)) DirAccess.RemoveAbsolute(SAVE_PATH);
 		GlobalCurrency = 1000;
+		GlobalHP = 100;
+		GlobalATK = 10;
+		GlobalDEF = 10;
 		GlobalUpgradePoints = 0;
 		InitializeRewards();
 		SaveGame();
@@ -74,6 +81,10 @@ public partial class RewardManager : Node
 		data["currency"] = GlobalCurrency;
 		data["upgrade_points"] = GlobalUpgradePoints;
 		
+		data["atk"] = GlobalATK;
+		data["def"] = GlobalDEF;
+		data["hp"] = GlobalHP;
+		
 		data["unlocked"] = _allRewards.Where(r => r.IsUnlocked).Select(r => r.Id).ToArray();
 		using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Write);
 		file.StoreString(Json.Stringify(data));
@@ -87,6 +98,10 @@ public partial class RewardManager : Node
 		if (data.ContainsKey("currency")) GlobalCurrency = (int)data["currency"];
 		
 		if (data.ContainsKey("upgrade_points")) GlobalUpgradePoints = (int)data["upgrade_points"];
+
+		if (data.ContainsKey("atk")) GlobalATK = (int)data["atk"];
+		if (data.ContainsKey("def")) GlobalDEF = (int)data["def"];
+		if (data.ContainsKey("hp")) GlobalHP = (int)data["hp"];
 
 		if (data.ContainsKey("unlocked")) {
 			foreach(string id in data["unlocked"].AsStringArray()) {
