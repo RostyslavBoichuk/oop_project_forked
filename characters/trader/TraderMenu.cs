@@ -4,85 +4,63 @@ using System.Threading.Tasks;
 
 public partial class TraderMenu : Node2D
 {
-	[Export] public CharacterManager manager;
-	private Button close_btn;
-	private Button spin_btn;
-	private Sprite2D spinerSprite;
-	private Trader trader;
+	public CharacterManager Manager;
+
+	private Sprite2D _spinnerSprite;
+	private Button _spinBtn;
+	private Button _closeBtn;
 	
-	
+	private Reward[] _rewards;
+	private bool _spinning = false;
+
 	public override void _Ready()
 	{
-		spinerSprite = GetNode<Sprite2D>("spiner");
-		spin_btn = GetNode<Button>("spin_btn");
-		spin_btn.Pressed += async () => await Spin();
-		close_btn = GetNode<Button>("close_btn");
-		trader = FindTrader();
-		close_btn.Pressed += () =>
-		{
-			if (trader != null)
-			{
-				trader.Exit();
-			}
-			if (GetParent() is CharacterManager manager)
-			{
-				manager.shop_exists = false;
-			}
-			QueueFree();
-		};
+		ProcessMode = ProcessModeEnum.Always;
+		GetTree().Paused = true;
+		
+		_spinnerSprite = GetNode<Sprite2D>("spiner");
+		_spinBtn = GetNode<Button>("spin_btn");
+		_closeBtn = GetNode<Button>("close_btn");
 
+		if (_spinnerSprite == null || _spinBtn == null || _closeBtn == null)
+		{
+			GD.PrintErr("ОШИБКА: Не найдены кнопки или спрайт! Проверьте имена нод в TraderMenu.");
+			return;
+		}
+
+		_rewards = RewardManager.Instance.GetRandomShopSelection();
+		
+		_spinBtn.Pressed += async () => await Spin();
+		_closeBtn.Pressed += CloseMenu;
 	}
 
-	private Trader FindTrader()
+	private void CloseMenu()
 	{
-		foreach (Node node in GetTree().GetRoot().GetChildren())
-		{
-			Trader t = SearchTrader(node);
-			if (t != null)
-				return t;
-		}
-		return null;
-	}
-
-	private Trader SearchTrader(Node node)
-	{
-		if (node is Trader t)
-			return t;
-		foreach (Node child in node.GetChildren())
-		{
-			Trader found = SearchTrader(child);
-			if (found != null)
-				return found;
-		}
-		return null;
+		GetTree().Paused = false;
+		if (Manager != null) Manager.shop_exists = false;
+		QueueFree();
 	}
 
 	private async Task Spin()
 	{
-		RandomNumberGenerator rng = new RandomNumberGenerator();
-		rng.Randomize();
+		if (_spinning) return;
+		_spinning = true;
 
-		float startAngle = spinerSprite.RotationDegrees;
-		float totalRotation = rng.RandfRange(720f, 1440f);
-		float targetAngle = startAngle + totalRotation;
+		float target = _spinnerSprite.RotationDegrees + (float)GD.RandRange(720, 1440);
+		
+		Tween t = CreateTween().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+		t.TweenProperty(_spinnerSprite, "rotation_degrees", target, 2.0f);
+		
+		await ToSignal(t, "finished");
 
-		float duration = 2f;
-		float elapsed = 0f;
-
-		while (elapsed < duration)
+		int idx = Mathf.Clamp(Mathf.FloorToInt((_spinnerSprite.RotationDegrees % 360) / 90f), 0, 3);
+		
+		if (idx < _rewards.Length) 
 		{
-			float t = elapsed / duration;
-			float easedT = 1 - Mathf.Pow(1 - t, 3);
-			spinerSprite.RotationDegrees = Mathf.Lerp(startAngle, targetAngle, easedT);
-
-			await ToSignal(GetTree(), "process_frame");
-			elapsed += (float)GetProcessDeltaTime();
+			GD.Print($"Won: {_rewards[idx].DisplayName}");
+			_rewards[idx].Effect?.Invoke(Manager);
 		}
 
-		spinerSprite.RotationDegrees = targetAngle % 360f;
-
-		int item = Mathf.FloorToInt(spinerSprite.RotationDegrees / 90f) % 4;
-
-		manager.luck(item);
+		_spinning = false;
 	}
 }

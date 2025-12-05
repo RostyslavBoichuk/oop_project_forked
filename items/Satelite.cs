@@ -56,7 +56,7 @@ public partial class Satelite : Area2D
 		if (current is MainCharacter)
 		{
 			GD.Print("MainCharacter entered Satellite!");
-			manager.addMoney(5);
+			manager.AddMoney(5);
 			QueueFree();
 		}
 	}

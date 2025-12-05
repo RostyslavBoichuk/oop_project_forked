@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://28x6avepv2ku"]
+
+[ext_resource type="Script" uid="uid://4gdh2osfbc2" path="res://characters/trader/UnlockShopMenu.cs" id="1_y1qlh"]
+[ext_resource type="Texture2D" uid="uid://duy3n5imb7ile" path="res://backgrounds/BG_Casino.jpg" id="2_6pdo2"]
+
+[node name="UnlockShopMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_y1qlh")
+
+[node name="CurrencyLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 23.0
+offset_right = 287.0
+offset_bottom = 115.0
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 946.0
+offset_top = 19.0
+offset_right = 1131.0
+offset_bottom = 114.0
+text = "Close"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 113.0
+offset_right = 784.0
+offset_bottom = 548.0
+
+[node name="ItemContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="BgCasino" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(580.5, 323.25)
+scale = Vector2(1.1298828, 1.1618962)
+texture = ExtResource("2_6pdo2")

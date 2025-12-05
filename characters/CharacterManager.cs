@@ -3,6 +3,12 @@ using System;
 
 public partial class CharacterManager : Node2D
 {
+	private const string SHOP_PATH = "res://characters/trader/trader_menu.tscn";
+	private const string UNLOCK_PATH = "res://characters/trader/UnlockShopMenu.tscn";
+	private const string SCOOTER_PATH = "res://items/scooter.tscn";
+	private const string CHARACTER_PATH = "res://characters/Atlas/main_character.tscn";
+	private const string TOMBSTONE_PATH = "res://characters/tombstone.tscn";
+	
 	private PackedScene characterBase;
 	private PackedScene characterTombstoneBase;
 	private MainCharacter character;
@@ -10,32 +16,61 @@ public partial class CharacterManager : Node2D
 	private float hp = 100;
 	private float bullet_counter = 5;
 	private bool exists = false;
-	public float currency = 0;
 	public bool allow_shop = false;
   	public bool shop_exists = false;
 	
-	//public override void _Ready()
-	//{
-		//characterBase = ResourceLoader.Load<PackedScene>("res://characters/Atlas/main_character.tscn");
-		//SpawnCharacter();
-	//}
+	public float currency 
+	{
+		get => RewardManager.Instance.GlobalCurrency;
+		set => RewardManager.Instance.GlobalCurrency = (int)value;
+	}
+	
+	public int UpgradePoints { get; set; } = 0;
+	
 
 	public override void _Process(double delta)
 	{
 		if (Input.IsKeyPressed(Key.Q))
 		{
-			characterBase = ResourceLoader.Load<PackedScene>("res://characters/Atlas/main_character.tscn");
+			if (characterBase == null)
+			{
+				characterBase = GD.Load<PackedScene>(CHARACTER_PATH);
+			}
 			SpawnCharacter();
 		}
-		if (Input.IsKeyPressed(Key.M) && allow_shop && !shop_exists){
-			PackedScene shopBase = ResourceLoader.Load<PackedScene>("res://characters/trader/trader_menu.tscn");
-			TraderMenu menu = shopBase.Instantiate() as TraderMenu;
-			if (menu != null)
-			{
-				menu.manager = this;
-				AddChild(menu);
-				shop_exists = true;
-	  		}
+
+		if (Input.IsKeyPressed(Key.M) && allow_shop && !shop_exists)
+		{
+			OpenMenu(SHOP_PATH);
+		}
+		
+		if (Input.IsKeyPressed(Key.U) && allow_shop && !shop_exists)
+		{
+			OpenMenu(UNLOCK_PATH);
+		}
+
+		if (Input.IsKeyPressed(Key.R))
+		{
+			RewardManager.Instance.ResetData();
+			GD.Print($"Data Reset. Currency: {currency}");
+		}
+	}
+	
+	private void OpenMenu(string path)
+	{
+		if (ResourceLoader.Exists(path))
+		{
+			var scene = GD.Load<PackedScene>(path);
+			Node menu = scene.Instantiate();
+			if (menu is TraderMenu tm) tm.Manager = this;
+			if (menu is UnlockShopMenu us) us.Manager = this;
+
+			AddChild(menu);
+			shop_exists = true;
+		}
+		else
+		{
+			GD.PrintErr($"Scene not found at: {path}");
 		}
 	}
 		
@@ -82,34 +117,44 @@ public partial class CharacterManager : Node2D
 		}
 		return false;
 	}
-	  public void addMoney(float money){
-	currency += money;
-  }
 
-  public void luck(int buff){
-	switch (buff){
-	  case 0:
-		Reload(2);
-		break;
-	  case 1:
-		Reload(5);
-		break;
-	  case 2:
-		Reload(10);
-		break;
-	  case 3:
+	public void AddMoney(float money)
+	{
+		RewardManager.Instance.AddCurrency((int)money);
+		GD.Print($"Money Collected! Total: {currency}");
+	}
+
+	public void Heal(float amount)
+	{
+		hp += amount;
+		if (hp > 100) hp = 100;
+		GD.Print($"Healed! HP is now {hp}");
+	}
+
+	public void EquipScooter()
+	{
 		GD.Print("Scooter added:");
 		if (character == null || !IsInstanceValid(character))
 		{
-		  GD.PrintErr("No valid character to attach scooter to!");
-		  return;
+			GD.PrintErr("No valid character to attach scooter to!");
+			return;
 		}
-		var scooterBase = (PackedScene)ResourceLoader.Load("res://items/scooter.tscn");
-		Scooter scooter = (Scooter)scooterBase.Instantiate();
-		scooter.manager = this;
-		character.AddChild(scooter);
-		GD.Print("Scooter added:", scooter.GetPath());
-		break;
+
+		if (ResourceLoader.Exists(SCOOTER_PATH))
+		{
+			var scooterBase = GD.Load<PackedScene>(SCOOTER_PATH);
+			var scooter = scooterBase.Instantiate(); 
+			
+			if (scooter is Scooter s) s.manager = this; 
+
+			character.AddChild(scooter);
+			GD.Print("Scooter equipped successfully.");
+		}
 	}
-  }
+	
+	public void AddUpgradePoint(int amount)
+	{
+		UpgradePoints += amount;
+		GD.Print($"Upgrade Point Acquired! Total Points: {UpgradePoints}");
+	}
 }
