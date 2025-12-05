@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1itbwjffwpr1"]
+[gd_scene load_steps=12 format=3 uid="uid://d1itbwjffwpr1"]
 
 [ext_resource type="Script" uid="uid://drc88wrmc86qh" path="res://scenes/PauseMenu.cs" id="1_7uaqf"]
 [ext_resource type="Texture2D" uid="uid://c8kga2pt547h1" path="res://backgrounds/BG_Pause_Menu.jpg" id="1_w5f25"]
@@ -9,10 +9,11 @@
 [ext_resource type="Script" uid="uid://c8cwwdl8inolh" path="res://scenes/QuestsButton.cs" id="6_4mb1r"]
 [ext_resource type="Texture2D" uid="uid://d20x8carx0svs" path="res://items/textures/Quest_Quests.png" id="7_5njsr"]
 [ext_resource type="Texture2D" uid="uid://xunx4vhmygds" path="res://items/textures/Statistics.png" id="8_5njsr"]
+[ext_resource type="Script" uid="uid://wut1xn7h00gt" path="res://scenes/StatsButton.cs" id="9_8rcwf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8ish"]
 radius = 83.00003
-height = 312.0
+height = 300.0
 
 [node name="PauseMenu" type="Node2D"]
 visibility_layer = 512
@@ -27,6 +28,7 @@ texture = ExtResource("1_w5f25")
 
 [node name="Node2D_MainMenuButton" type="Node2D" parent="."]
 script = ExtResource("2_w5f25")
+sceneToLoad = null
 
 [node name="Area2D_MainMenuButton" type="Area2D" parent="Node2D_MainMenuButton"]
 
@@ -43,11 +45,12 @@ texture = ExtResource("3_6qyv5")
 
 [node name="Node2D_RestartButton" type="Node2D" parent="Node2D_MainMenuButton"]
 script = ExtResource("4_t8ish")
+sceneToLoad = null
 
 [node name="Area2D_RestartButton" type="Area2D" parent="Node2D_MainMenuButton/Node2D_RestartButton"]
 
 [node name="CollisionShape2D_1" type="CollisionShape2D" parent="Node2D_MainMenuButton/Node2D_RestartButton/Area2D_RestartButton"]
-position = Vector2(-345, 9)
+position = Vector2(-347, 7)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_t8ish")
 
@@ -74,11 +77,12 @@ scale = Vector2(0.14375003, 0.14375001)
 texture = ExtResource("7_5njsr")
 
 [node name="Node2D_StatsButton3" type="Node2D" parent="Node2D_MainMenuButton"]
+script = ExtResource("9_8rcwf")
 
 [node name="Area2D_StatsButton" type="Area2D" parent="Node2D_MainMenuButton/Node2D_StatsButton3"]
 
 [node name="CollisionShape2D_1" type="CollisionShape2D" parent="Node2D_MainMenuButton/Node2D_StatsButton3/Area2D_StatsButton"]
-position = Vector2(12, -203)
+position = Vector2(12, -205)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_t8ish")
 

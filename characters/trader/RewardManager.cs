@@ -11,8 +11,8 @@ public partial class RewardManager : Node
 	public int GlobalUpgradePoints { get; set; } = 0;
 	
 	public int GlobalHP { get; set; } = 100;
-	public int GlobalATK { get; set; } = 1;
-	public int GlobalDEF { get; set; } = 1;
+	public int GlobalATK { get; set; } = 10;
+	public int GlobalDEF { get; set; } = 10;
 	
 	private List<Reward> _allRewards = new List<Reward>();
 
@@ -46,8 +46,8 @@ public partial class RewardManager : Node
 		if (FileAccess.FileExists(SAVE_PATH)) DirAccess.RemoveAbsolute(SAVE_PATH);
 		GlobalCurrency = 1000;
 		GlobalHP = 100;
-		GlobalATK = 1;
-		GlobalDEF = 1;
+		GlobalATK = 10;
+		GlobalDEF = 10;
 		GlobalUpgradePoints = 0;
 		InitializeRewards();
 		SaveGame();
@@ -76,7 +76,7 @@ public partial class RewardManager : Node
 		return unlocked.Take(4).ToArray();
 	}
 
-	private void SaveGame() {
+	public void SaveGame() {
 		var data = new Godot.Collections.Dictionary();
 		data["currency"] = GlobalCurrency;
 		data["upgrade_points"] = GlobalUpgradePoints;

@@ -28,6 +28,8 @@ public partial class CharacterManager : Node2D
 	
 	public int UpgradePoints { get; set; } = 0;
 	
+
+	
 	public override void _Ready()
 	{
 		hp = RewardManager.Instance.GlobalHP;
@@ -35,6 +37,7 @@ public partial class CharacterManager : Node2D
 	
 	public override void _Process(double delta)
 	{
+			
 		if (Input.IsKeyPressed(Key.Q))
 		{
 			if (characterBase == null)

@@ -2,6 +2,9 @@ using Godot;
 
 public partial class Bullet : Area2D
 {
+	public int atk = RewardManager.Instance.GlobalATK;
+	public int def = RewardManager.Instance.GlobalDEF;
+	
 	protected BulletMovement movementLogic;
 	protected BulletCollisionHandler collisionHandler;
 	protected bool facingRight;
@@ -120,8 +123,10 @@ public class BulletCollisionHandler
 		else if (area.IsInGroup("player") && owner.IsInGroup("enemy_bullet"))
 		{
 			var manager = area.GetParent<CharacterManager>();
-			if (manager != null)
-				manager.TakeDamage(1);
+			if (manager != null) {
+				
+				manager.TakeDamage(RewardManager.Instance.GlobalATK * (10f - 10f / (10f + RewardManager.Instance.GlobalDEF)));
+			}
 			owner.QueueFree();
 		}
 		else if (area.IsInGroup("enemy") && owner.IsInGroup("player_bullet"))

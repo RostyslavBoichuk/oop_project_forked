@@ -4,8 +4,8 @@ using System;
 public partial class StatsButton : Node2D
 {
 	private Area2D area;
-	// [Export]
-	// private string sceneToLoad = "res://scenes/stats_menu.tscn";
+	[Export]
+	private string sceneToLoad = "res://scenes/Statistical_Upgrade.tscn";
 
 	public override void _Ready()
 	{
@@ -22,8 +22,8 @@ public partial class StatsButton : Node2D
 	{
 		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
 		{
-		//	GD.Print($"{Name} clicked! Loading scene: {sceneToLoad}");
-		//	GetTree().ChangeSceneToFile(sceneToLoad);
+			GD.Print($"{Name} clicked! Loading scene: {sceneToLoad}");
+			GetTree().ChangeSceneToFile(sceneToLoad);
 		}
 	}
 }
